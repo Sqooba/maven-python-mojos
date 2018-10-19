@@ -1,7 +1,7 @@
 # Maven python plugin
 
 This maven plugin allows to run test written using pytest,
-build a python egg distribution and install the package locally
+build a python egg distribution and install the package locally.
 
 ## Prerequisites
 
@@ -10,7 +10,8 @@ build a python egg distribution and install the package locally
 * Python 2.7 or 3.X
 * pip
 * setup.py in your python source directory
-* __optional__: [pytest](https://docs.pytest.org/en/latest/usage.html), if you want to run your python test with maven
+* __optional__: [pytest](https://docs.pytest.org/en/latest/usage.html), if you want to run your python test with maven.
+* __optional__: [mypy](http://mypy-lang.org/), if you want to run optional static typing analysis.
 
 ## Get plugin from sqooba's Artifactory
 
@@ -24,7 +25,7 @@ Add the plugin repository to your `pom.xml` or `settings.xml`. For example in yo
         </pluginRepository>
     </pluginRepositories>
 
-Make sure that have the rights to read from this maven repo
+Make sure that have the rights to read from this maven repository.
 
 ## Build and install manually
 
@@ -52,7 +53,7 @@ Make sure that have the rights to read from this maven repo
 
     mvn test
 
-to run your python test. __Please note that only tests written using [pytest](https://docs.pytest.org/en/latest/usage.html) are supported for now__
+to run your python test. __Please note that only tests written using [pytest](https://docs.pytest.org/en/latest/usage.html) are supported for now.__
 
     mvn package
 
@@ -61,6 +62,10 @@ to build an egg distribution of your python package in `./target/py/`
     mvn install
 
 to install the python package in `site-packages` using pip
+
+    mvn compile
+
+to run optional static typing analysis using [mypy](http://mypy-lang.org/). __Please note that only mypy is supported for now.__
 
 ## Versioning
 
@@ -78,7 +83,7 @@ If a version number is specified in the setup.py it will override both options a
 `test` phase:
 * Python interpreter (to run pytest): `<pythonExecutable>python</pythonExecutable>`
 * Test directory: `<testDirectory>${project.basedir}/src/main/python/tests</testDirectory>`
-* Extra pytest parameters (logging, code coverage, etc...: `<extraParams>"-v -s"</extraParams>`
+* Extra pytest parameters (logging, code coverage, etc...): `<extraParams>"-v -s"</extraParams>`
 
 `package` phase:
 
@@ -86,6 +91,13 @@ If a version number is specified in the setup.py it will override both options a
 * Python source directory: `<sourceDirectory>${project.basedir}/src/main/python</sourceDirectory>`
 * Python package version: `<packageVersion>${project.version}</packageVersion>`
 * Python package build (possible values: `sdist`, `bdist_egg`, `bdist_wheel`): `<pythonBuild>sdist</pythonBuild>`
+
+`compile` phase:
+
+* Python interpreter: `<pythonExecutable>python</pythonExecutable>`
+* Python source directory: `<sourceDirectory>${project.basedir}/src/main/python</sourceDirectory>`
+* Extra mypy parameters: `<extraParams>--ignore-missing-imports</extraParams>`
+
 
 `install` phase:
 
